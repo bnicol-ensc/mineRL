@@ -12,8 +12,8 @@ import minerl
 import coloredlogs
 coloredlogs.install(logging.DEBUG)
 
-# All the evaluations will be evaluated on MineRLObtainDiamond-v0 environment
-MINERL_GYM_ENV = os.getenv('MINERL_GYM_ENV', 'MineRLObtainDiamond-v0')
+# All the evaluations will be evaluated on MineRLNavigateDense-v0 environment
+MINERL_GYM_ENV = os.getenv('MINERL_GYM_ENV', 'MineRLNavigateDense-v0')
 MINERL_MAX_EVALUATION_EPISODES = int(os.getenv('MINERL_MAX_EVALUATION_EPISODES', 5))
 
 def main():
