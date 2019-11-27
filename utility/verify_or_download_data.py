@@ -14,7 +14,7 @@ if __name__ == "__main__":
     print("Data directory is {}".format(data_dir))
     should_download = True
     try:
-        data = minerl.data.make('MineRLObtainDiamond-v0', data_dir=data_dir)
+        data = minerl.data.make('MineRLNavigateDense-v0', data_dir=data_dir)
         # print("yo")
         assert len(data._get_all_valid_recordings(data.data_dir)) > 0
         # print("no")
