@@ -4,34 +4,33 @@
 try for neat implementation
 
 Created : 04/12/2019 by Guilhem Le Moigne
-Updated : 
+Updated : 05/12/2019 by Guilhem Le Moigne
 
 """
 
 
 import os
 import neat
+import random
+
+generation = 0
 
 def fitness_function(population, config):
-    for genome_id, genome in genomes:
-        genome.fitness = 4
+    global generation
+    print(generation)
+    for genome_id, genome in population:
+        net = neat.nn.FeedForwardNetwork.create(genome, config)
+        print(genome_id, net, sep='\n')
+        if genome.fitness == None : genome.fitness = random.random()
+        else : genome.fitness += random.random()
+    generation += 1
 
 
 def run(config_file):
-    # Load configuration.
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_file)
-
-    # Create the population, which is the top-level object for a NEAT run.
     p = neat.Population(config)
-
-    # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(show_species_detail=True))
-    stats = neat.StatisticsReporter()
-    p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(5))
-
-    # Run for up to 300 generations.
-    winner = p.run(fitness_function, 300)
+    winner = p.run(fitness_function, 5)
+    print(winner)
 
 
 if __name__ == '__main__':
