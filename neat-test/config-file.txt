@@ -1,7 +1,7 @@
 #parameters for the neat experiment
 
 #Created : 04/12/2019 by Guilhem Le Moigne
-#Updated : 
+#Updated : 10/12/2019 by Guilhem Le Moigne
 
 
 [NEAT]
@@ -19,13 +19,13 @@ survival_threshold = 0.2
 activation_default      = sigmoid
 activation_mutate_rate  = 0.0
 activation_options      = sigmoid
-aggregation_default     = sum
+aggregation_default     = mean
 aggregation_mutate_rate = 0.0
 aggregation_options     = sum
 bias_init_mean          = 0.0
-bias_init_stdev         = 1.0
-bias_max_value          = 30.0
-bias_min_value          = -30.0
+bias_init_stdev         = 0.2
+bias_max_value          = 1.0
+bias_min_value          = -1.0
 bias_mutate_power       = 0.5
 bias_mutate_rate        = 0.7
 bias_replace_rate       = 0.1
@@ -36,12 +36,14 @@ conn_delete_prob        = 0.5
 enabled_default         = True
 enabled_mutate_rate     = 0.01
 feed_forward            = True
-initial_connection      = full
+initial_connection      = partial_nodirect #0.9
 node_add_prob           = 0.2
 node_delete_prob        = 0.2
 num_hidden              = 0
+
 num_inputs              = 2
 num_outputs             = 1
+
 response_init_mean      = 1.0
 response_init_stdev     = 0.0
 response_max_value      = 30.0
@@ -64,4 +66,3 @@ compatibility_threshold = 3.0
 species_fitness_func = max
 max_stagnation       = 20
 species_elitism      = 2
-
