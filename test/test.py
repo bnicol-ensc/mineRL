@@ -12,16 +12,18 @@ import os
 import neat
 import train
 
-
+generation = 1
 def fitness_function(population, config):
+    global generation
     trainings = []
     for genome_id, genome in population:
         net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
-        trainings.append(train.Trainer(net))
+        trainings.append(train.Trainer(net, 3*generation))
         trainings[-1].start()
     for trainer, genome in zip(trainings, [individual[1] for individual in population]) :
         trainer.join()
         genome.fitness = trainer.fitness
+    generation += 1
 
 def run(config_file):
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_file)
