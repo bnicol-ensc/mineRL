@@ -16,8 +16,8 @@ import train
 def fitness_function(population, config):
     trainings = []
     for genome_id, genome in population:
-        net = neat.nn.FeedForwardNetwork.create(genome, config)
-        trainings.append(train.trainer(net))
+        net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
+        trainings.append(train.Trainer(net))
         trainings[-1].start()
     for trainer, genome in zip(trainings, [individual[1] for individual in population]) :
         trainer.join()
