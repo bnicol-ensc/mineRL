@@ -41,8 +41,9 @@ node_add_prob           = 0.2
 node_delete_prob        = 0.2
 num_hidden              = 0
 
-num_inputs              = 2
-num_outputs             = 1
+#inputs : pov(12288) rew(1) compass(1)
+num_inputs              = 12290
+num_outputs             = 10
 
 response_init_mean      = 1.0
 response_init_stdev     = 0.0
