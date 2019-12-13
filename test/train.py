@@ -3,6 +3,8 @@
 """
 trainer for neat
 
+TODO
+
 Created : 10/12/2019 by Guilhem Le Moigne
 Updated : 11/12/2019 by Guilhem Le Moigne, Victor Leroy
 """
@@ -38,7 +40,7 @@ class Trainer(threading.Thread) :
             done = False
             total_rew = 0
             t = time.time()
-            while time.time() - t < self.time or not done :
+            while time.time() - t < self.time and not done :
                 inputs = [standardize(obs['compassAngle'], 360, 180)]
                 inputs.extend([standardize(reward, 100)])
                 inputs.extend(standardize(obs['pov'].flatten(), 255))
