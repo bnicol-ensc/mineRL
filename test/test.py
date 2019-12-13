@@ -10,7 +10,7 @@ Updated : 10/12/2019 by Guilhem Le Moigne
 
 import os
 import neat
-import train1
+import train
 
 generation = 1
 def fitness_function(population, config):
@@ -19,7 +19,7 @@ def fitness_function(population, config):
     trainings = []
     for genome_id, genome in population:
         net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
-        trainings.append(train1.Trainer(net, 3*generation))
+        trainings.append(train.Trainer(net, 3*generation))
         trainings[-1].start()
     for trainer, genome in zip(trainings, [individual[1] for individual in population]) :
         trainer.join()
