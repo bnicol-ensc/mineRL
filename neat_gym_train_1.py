@@ -21,8 +21,8 @@ import gym
 import neat
 
 
-NB_GENERATIONS = 2
-NB_ENVS = 2
+NB_GENERATIONS = 1
+NB_ENVS = 1
 TRAINING_TIME = lambda generation : int(5 + 55/(1+math.exp(-(generation-15))))#sigmoid centered on 15 generations that converge towards 1 min
 
 

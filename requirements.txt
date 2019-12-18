@@ -1,7 +1,15 @@
 crowdai_api
 minerl
+gym
+neat-python
 coloredlogs
 matplotlib
+math
 opencv-python
 pyro4
-neat-python
+json
+configparser
+os
+time
+threading
+datetime

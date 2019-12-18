@@ -24,7 +24,6 @@ def load(network_path, config_path) :
 	with open(network_path, 'r') as json_file :
 		node_evals = json.load(json_file)
 		for node_eval in node_evals :
-			print(node_eval)
 			node_eval[1] = getattr(neat.activations, node_eval[1])
 			node_eval[2] = getattr(neat.aggregations, node_eval[2])
 
@@ -36,7 +35,8 @@ def save(file_path, network) :
 		fnode_evals = []
 		for node_eval in network.node_evals :
 			node, bias, response, links = [node_eval[i] for i in [0, 3, 4, 5]]
-			activation = str(type(node_eval[1])).split(' ')[1]
-			aggregation = str(type(node_eval[2])).split(' ')[1]
+			print(str(node_eval[1]))
+			activation = str(node_eval[1]).split(' ')[1]
+			aggregation = str(node_eval[2]).split(' ')[1]
 			fnode_evals.append((node, activation, aggregation, bias, response, links))
 		json.dump(fnode_evals, file)
