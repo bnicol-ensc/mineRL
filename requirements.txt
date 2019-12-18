@@ -5,3 +5,15 @@ matplotlib
 opencv-python
 pyro4
 neat-python
+PIL
+gym
+logging
+os
+glob
+numpy
+matplotlib.pyplot
+cv2
+random
+sklearn.model_selection
+tensorflow
+scipy
