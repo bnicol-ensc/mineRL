@@ -8,6 +8,7 @@
 fitness_criterion     = max
 fitness_threshold     = 0
 no_fitness_termination = true
+#il faut une population de 2 individus minimum
 pop_size              = 2
 reset_on_extinction   = False
 

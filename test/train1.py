@@ -22,6 +22,7 @@ def diff(d1, d2) :
         if i != 'camera' :
             if d1[i] == d2[i][0] : dif += 1
             else : dif -= 1
+    #camera pas normee
     dif += 180 - abs(180 - abs(d1['camera'][0]-d2['camera'][0][0]))
     dif += 180 - abs(180 - abs(d1['camera'][1]-d2['camera'][0][1]))
     return dif
