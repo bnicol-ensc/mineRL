@@ -12,7 +12,7 @@ import os
 
 
 
-import gym
+
 import minerl
 
 
