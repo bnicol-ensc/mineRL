@@ -32,7 +32,7 @@ data = minerl.data.make(
 
 import glob
 import numpy as np
-from PIL import Image
+from pillow import Image
 import matplotlib.pyplot as plt
 import os
 
