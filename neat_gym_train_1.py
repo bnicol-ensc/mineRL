@@ -13,17 +13,15 @@ import os
 import time
 import threading
 import configparser
-import NEAT_recurrent_network_file
 import math
 import datetime
 import minerl
 import gym
 import neat
+import neat_recurrent_network_file
 
 
-NB_GENERATIONS = 1
-NB_ENVS = 1
-TRAINING_TIME = lambda generation : int(5 + 55/(1+math.exp(-(generation-15))))#sigmoid centered on 15 generations that converge towards 1 min
+TRAINING_FUNC = lambda generation : int(5 + 55/(1+math.exp(-(generation-15))))#sigmoid centered on 15 generations that converge towards 1 min
 
 
 def standardize(v, scope, offset=0) :
@@ -39,7 +37,8 @@ class Fitness:
 		self.envs = envs
 		
 	def fitness(self, population, config) :
-		print('\n\rGénération : ', self.envs[0].generation, '.', sep='', end='\n\r\n\r')
+		generation = self.envs[0].generation
+		print('\n\rGénération : ', generation, '.', sep='', end='\n\r\n\r')
 		for genome_id, genome in population :
 			net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
 			i = 0
@@ -48,21 +47,31 @@ class Fitness:
 				list(filter(lambda x : x[0] == self.envs[i].genome_id, population))[0][1].fitness = self.envs[i].fitness
 			self.envs[i].net_activate = net.activate
 			self.envs[i].genome_id = genome_id
-			self.envs[i].training_time = TRAINING_TIME(self.envs[i].generation)
+			self.envs[i].training_time = TRAINING_FUNC(self.envs[i].generation)
 			self.envs[i].used=True
 			print('Environnement ', self.envs[i].env_id,' utilisé par le génome ', self.envs[i].genome_id, '.', sep='')
-		for i in self.envs :
-			while i.used : time.sleep(0.1)
-			if i.genome_id != None :
-				list(filter(lambda x : x[0] == i.genome_id, population))[0][1].fitness = i.fitness
-			i.fitness = None
-			i.generation += 1
-
+		for env in self.envs :
+			while env.used : time.sleep(0.1)
+			if env.genome_id != None :
+				list(filter(lambda x : x[0] == env.genome_id, population))[0][1].fitness = env.fitness
+			env.fitness = None
+			env.generation += 1
+		if generation%1000 == 0 :
+			print('Sauvegarde...', end='')
+			best_gen = population[0][1]
+			for genome_id, genome in population :
+				if genome.fitness > best_gen.fitness : best_gen = genome
+			date = datetime.datetime.now()
+			net_file_path = 'saved/Gym_trained_NEAT_network_{0}-{1}-{2}_{3}h{4}.json'.format(date.day, date.month, date.year, date.hour, date.minute)
+			net = neat.nn.recurrent.RecurrentNetwork.create(winner, neat_config)
+			neat_recurrent_network_file.save(net_file_path, net)
+			print('\rRéseau enregistré dans ', net_file_path, '.', sep='')
 
 
 class MinerlEnv(threading.Thread):
-	def __init__(self, env_id):
+	def __init__(self, env_id, num_generations):
 		self.env_id = env_id
+		self.num_generations = num_generations
 		self.ready = False
 		self.net_activate = None
 		self.genome_id = None
@@ -80,7 +89,7 @@ class MinerlEnv(threading.Thread):
 			reward = 0
 			total_rew = 0
 			t = time.time()
-			while self.generation <= NB_GENERATIONS :
+			while self.generation <= self.num_generations :
 				if not self.used :
 					time.sleep(0.1)
 					t = time.time()
@@ -110,11 +119,16 @@ class MinerlEnv(threading.Thread):
 
 def main() :
 	local_dir = os.path.dirname(__file__)
-	config_file = os.path.join(local_dir, 'config-file.txt')
-	neat_config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_file)
+	config_path = os.path.join(local_dir, 'config-file.txt')
+	neat_config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
+
+	config = configparser.ConfigParser()
+	config.read(config_path)
+	num_generations = int(config['PERSONAL']['num_generations'])
+	num_environments = int(config['PERSONAL']['num_environments'])
 
 	print('Lancement des environnements...', end='')
-	envs = [MinerlEnv(env_id) for env_id in range(NB_ENVS)]
+	envs = [MinerlEnv(env_id, num_generations) for env_id in range(num_environments)]
 	for env in envs : env.start()
 	for env in envs : 
 		while not env.ready : time.sleep(0.1)
@@ -122,15 +136,15 @@ def main() :
 	print('\rTous les environnements sont prêts.\n\r')
 	print('Demarage de l\'entraînement.')
 	p = neat.Population(neat_config)
-	winner = p.run(Fitness(envs).fitness, NB_GENERATIONS)
+	winner = p.run(Fitness(envs).fitness, num_generations)
+	print('\n\r\n\rEntraînement terminé.\n\r')
 
+	print('Sauvegarde...', end='')
 	date = datetime.datetime.now()
 	net_file_path = 'train/Gym_trained_NEAT_network_{0}-{1}-{2}_{3}h{4}.json'.format(date.day, date.month, date.year, date.hour, date.minute)
 	net = neat.nn.recurrent.RecurrentNetwork.create(winner, neat_config)
-	NEAT_recurrent_network_file.save(net_file_path, net)
-
-	print('\n\r\n\rEntraînement terminé.\n\r')
-	print('Réseau final enregistré dans ', net_file_path, '.', sep='')
+	neat_recurrent_network_file.save(net_file_path, net)
+	print('\rRéseau final enregistré dans ', net_file_path, '.', sep='')
 
 if __name__ == '__main__':
 	main()

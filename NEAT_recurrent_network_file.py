@@ -35,7 +35,6 @@ def save(file_path, network) :
 		fnode_evals = []
 		for node_eval in network.node_evals :
 			node, bias, response, links = [node_eval[i] for i in [0, 3, 4, 5]]
-			print(str(node_eval[1]))
 			activation = str(node_eval[1]).split(' ')[1]
 			aggregation = str(node_eval[2]).split(' ')[1]
 			fnode_evals.append((node, activation, aggregation, bias, response, links))

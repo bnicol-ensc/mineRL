@@ -10,7 +10,7 @@ Created : 18/12/2019 by Guilhem Le Moigne
 import os
 import minerl
 import gym
-import NEAT_recurrent_network_file
+import neat_recurrent_network_file
 
 
 def standardize(v, scope, offset=0) :
@@ -30,12 +30,13 @@ def main() :
 	network_file = list(filter(lambda file : file[-5:] == '.json', os.listdir('train')))[0]
 	network_path = os.path.join(local_dir, 'train/{0}'.format(network_file))
 
-	network = NEAT_recurrent_network_file.load(network_path, config_path)
+	network = neat_recurrent_network_file.load(network_path, config_path)
+	print('Réseau chargé :', network_path)
 
 	print('Lancement de l\'environnement...', end='')
 	with gym.make('MineRLNavigateDense-v0') as env :
 		obs = env.reset()
-		print('\rEnvironnement prêt.')
+		print('\rEnvironnement prêt.            ')
 		done = False
 		reward = 0
 		while not done :
