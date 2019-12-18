@@ -23,8 +23,11 @@ Pour faire fonctionner le code il vous faudra lancer les fichiers executables pr
 .
 ├── aicrowd.json           # Submission meta information like your username
 ├── apt.txt                # Packages to be installed inside docker image
+├── config-file.txt        # NEAT configuration file
 ├── data                   # The downloaded data, the path to directory is also available as `MINERL_DATA_ROOT` env variable
 ├── requirements.txt       # Python packages to be installed
+├── run.py                 # Run training or testing phase code
+├── saved                  # Trained models are saved inside this directory
 ├── test.py                # IMPORTANT: Your testing/inference phase code, must include main() method
 ├── train                  # Your trained model MUST be saved inside this directory, must include main() method
 ├── train.py               # IMPORTANT: Your training phase code
