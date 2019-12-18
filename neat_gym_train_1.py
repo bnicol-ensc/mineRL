@@ -39,7 +39,7 @@ class Fitness:
 		self.envs = envs
 		
 	def fitness(self, population, config) :
-		print('\n\rGénération : ', self.envs[0].generation, '.', sep='', end='\n\r\n\r')
+		print('\n\rGénération : ', self.envs[0].generation, '.', sep=' ', end='\n\r\n\r')
 		for genome_id, genome in population :
 			net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
 			i = 0
