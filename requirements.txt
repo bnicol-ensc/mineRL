@@ -5,7 +5,7 @@ matplotlib
 opencv-python
 pyro4
 neat-python
-PIL
+pillow
 gym
 logging
 os
