@@ -61,8 +61,7 @@ class Fitness:
 			best_gen = population[0][1]
 			for genome_id, genome in population :
 				if genome.fitness > best_gen.fitness : best_gen = genome
-			date = datetime.datetime.now()
-			net_file_path = 'saved/Gym_trained_NEAT_network_{0}-{1}-{2}_{3}h{4}.json'.format(date.day, date.month, date.year, date.hour, date.minute)
+			net_file_path = 'saved/Gym_trained_NEAT_network_{0}_generations.json'.format(generation)
 			net = neat.nn.recurrent.RecurrentNetwork.create(winner, neat_config)
 			neat_recurrent_network_file.save(net_file_path, net)
 			print('\rRéseau enregistré dans ', net_file_path, '.', sep='')
