@@ -21,7 +21,6 @@ import datetime
 import minerl
 import gym
 import neat
-from xvfbwrapper import Xvfb
 import neat_recurrent_network_file
 
 
@@ -125,11 +124,11 @@ class MinerlEnv(threading.Thread):
 
 	"""
 	def __init__(self, env_id):
+		super(MinerlEnv, self).__init__()
 		self.env_id = env_id
 		self.is_ready = False
 		self.training_time = 1
 		self.stop = False
-		super(MinerlEnv, self).__init__()
 
 	def reset(self, last_genome_trained=None) :
 		"""Reset genome linked parameters, reset env and store last genome data"""
@@ -150,30 +149,29 @@ class MinerlEnv(threading.Thread):
 
 	def run(self):
 		"""Open a gym MineRLNavigateDense env to train networks when self.call is called"""
-		with Xvfb() as xvfb :
-			with gym.make('MineRLNavigateDense-v0') as self.env :
-				obs = self.reset()
-				done = False
-				reward = 0
-				self.is_ready = True
-				t = time.time()
-				while not self.stop :
-					if not self.used :
-						time.sleep(0.1)
-						t = time.time()
-					else :
-						inputs = set_inputs(obs['compassAngle'], reward, obs['pov'])
-						output = self.net_activate(inputs)
-						action = set_actions(self.env.action_space.noop(), output)
-						obs, reward, done, _ = self.env.step(action)
-						self.fitness += reward
-						duration = time.time() - t
-						if duration > self.training_time or done :
-							print('Le génome ', self.genome_id, ' libére l\'environnement ', self.env_id,'.', sep='')
-							if done : self.fitness += self.training_time - duration
-							self.fitness = self.fitness/duration
-							obs = self.reset((self.genome_id, self.fitness))
-							print("Environnement", self.env_id, "reset.")
+		with gym.make('MineRLNavigateDense-v0') as self.env :
+			obs = self.reset()
+			done = False
+			reward = 0
+			self.is_ready = True
+			t = time.time()
+			while not self.stop :
+				if not self.used :
+					time.sleep(0.1)
+					t = time.time()
+				else :
+					inputs = set_inputs(obs['compassAngle'], reward, obs['pov'])
+					output = self.net_activate(inputs)
+					action = set_actions(self.env.action_space.noop(), output)
+					obs, reward, done, _ = self.env.step(action)
+					self.fitness += reward
+					duration = time.time() - t
+					if duration > self.training_time or done :
+						print('Le génome ', self.genome_id, ' libére l\'environnement ', self.env_id,'.', sep='')
+						if done : self.fitness += self.training_time - duration
+						self.fitness = self.fitness/duration
+						obs = self.reset((self.genome_id, self.fitness))
+						print("Environnement", self.env_id, "reset.")
 
 
 def main() :
