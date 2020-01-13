@@ -22,6 +22,7 @@ import minerl
 import gym
 import neat
 import neat_recurrent_network_file
+from xvfbwrapper import Xvfb
 
 
 #sigmoid centered on 15 generations that converge towards 1 min
@@ -155,29 +156,30 @@ class MinerlEnv(threading.Thread):
 
 	def run(self):
 		"""Open a gym MineRLNavigateDense env to train networks when self.call is called"""
-		with gym.make('MineRLNavigateDense-v0') as self.env :
-			obs = self.reset()
-			done = False
-			reward = 0
-			self.is_ready = True
-			t = time.time()
-			while not self.stop :
-				if not self.used :
-					time.sleep(0.1)
-					t = time.time()
-				else :
-					inputs = set_inputs(obs['compassAngle'], reward, obs['pov'])
-					output = self.net_activate(inputs)
-					action = set_actions(self.env.action_space.noop(), output)
-					obs, reward, done, _ = self.env.step(action)
-					self.fitness += reward
-					duration = time.time() - t
-					if duration > self.training_time or done :
-						print('Le génome ', self.genome_id, ' libére l\'environnement ', self.env_id,'.', sep='')
-						if done : self.fitness += self.training_time - duration
-						self.fitness = self.fitness/duration
-						obs = self.reset((self.genome_id, self.fitness))
-						print("Environnement", self.env_id, "reset.")
+		with Xvfb() as xvfb :
+			with gym.make('MineRLNavigateDense-v0') as self.env :
+				obs = self.reset()
+				done = False
+				reward = 0
+				self.is_ready = True
+				t = time.time()
+				while not self.stop :
+					if not self.used :
+						time.sleep(0.1)
+						t = time.time()
+					else :
+						inputs = set_inputs(obs['compassAngle'], reward, obs['pov'])
+						output = self.net_activate(inputs)
+						action = set_actions(self.env.action_space.noop(), output)
+						obs, reward, done, _ = self.env.step(action)
+						self.fitness += reward
+						duration = time.time() - t
+						if duration > self.training_time or done :
+							print('Le génome ', self.genome_id, ' libére l\'environnement ', self.env_id,'.', sep='')
+							if done : self.fitness += self.training_time - duration
+							self.fitness = self.fitness/duration
+							obs = self.reset((self.genome_id, self.fitness))
+							print("Environnement", self.env_id, "reset.")
 
 
 def main() :
