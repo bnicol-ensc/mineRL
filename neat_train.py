@@ -96,13 +96,17 @@ class Fitness:
 				env_id = (env_id+1)%len(self.envs)
 				time.sleep(0.1)
 			if self.envs[env_id].last_genome_trained != None :
-				dict(population)[self.envs[env_id].last_genome_trained[0]].fitness = self.envs[env_id].last_genome_trained[1]
+				try :
+					dict(population)[self.envs[env_id].last_genome_trained[0]].fitness = self.envs[env_id].last_genome_trained[1]
+				except KeyError : pass
 			self.envs[env_id].call(genome_id, net.activate, TRAINING_TIME_FUNC(self.generation))
 			print('Environnement ', env_id,' utilisé par le génome ', self.envs[env_id].genome_id, '.', sep='')
 		for env in self.envs :
 			while env.used : time.sleep(0.1)
 			if env.last_genome_trained != None :
-				dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+				try :
+					dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+				except KeyError : pass
 		gen = fittest(population)
 		print('Le meilleur génome de la géneration a un score de ', gen.fitness, '.', sep='')
 		if self.generation%1000 == 0 :
