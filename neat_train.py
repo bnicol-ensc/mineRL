@@ -56,6 +56,13 @@ def set_actions(noop, output) :
 	noop['sneak'] = 0 if output[8]<=0.5 else 1
 	return noop
 
+def fittest(population) :
+	"""return best genome in population (based on fitness earned)"""
+	best_gen = population[0][1]
+	for genome_id, genome in population :
+		if genome.fitness > best_gen.fitness : best_gen = genome
+	return best_gen
+
 class Fitness:
 	"""
 	See fitness method
@@ -95,13 +102,15 @@ class Fitness:
 			while env.used : time.sleep(0.1)
 			if env.last_genome_trained != None :
 				dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+		gen = fittest(population)
+		print('Le meilleur génome de la géneration a un score de ', gen.fitness, '.', sep='')
 		if self.generation%1000 == 0 :
 			print('Sauvegarde...', end='')
-			best_gen = population[0][1]
+			gen = population[0][1]
 			for genome_id, genome in population :
-				if genome.fitness > best_gen.fitness : best_gen = genome
+				if genome.fitness > gen.fitness : gen = genome
 			net_file_path = 'saved/Gym_trained_NEAT_network_{0}_generations.json'.format(self.generation)
-			net = neat.nn.recurrent.RecurrentNetwork.create(best_gen, config)
+			net = neat.nn.recurrent.RecurrentNetwork.create(gen, config)
 			neat_recurrent_network_file.save(net_file_path, net)
 			print('\rRéseau enregistré dans ', net_file_path, '.', sep='')
 		self.generation += 1

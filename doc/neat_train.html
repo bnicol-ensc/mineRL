@@ -89,6 +89,13 @@ def set_actions(noop, output) :
         noop[&#39;sneak&#39;] = 0 if output[8]&lt;=0.5 else 1
         return noop
 
+def fittest(population) :
+        &#34;&#34;&#34;return best genome in population (based on fitness earned)&#34;&#34;&#34;
+        best_gen = population[0][1]
+        for genome_id, genome in population :
+                if genome.fitness &gt; best_gen.fitness : best_gen = genome
+        return best_gen
+
 class Fitness:
         &#34;&#34;&#34;
         See fitness method
@@ -128,13 +135,15 @@ class Fitness:
                         while env.used : time.sleep(0.1)
                         if env.last_genome_trained != None :
                                 dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+                gen = fittest(population)
+                print(&#39;Le meilleur génome de la géneration a un score de &#39;, gen.fitness, &#39;.&#39;, sep=&#39;&#39;)
                 if self.generation%1000 == 0 :
                         print(&#39;Sauvegarde...&#39;, end=&#39;&#39;)
-                        best_gen = population[0][1]
+                        gen = population[0][1]
                         for genome_id, genome in population :
-                                if genome.fitness &gt; best_gen.fitness : best_gen = genome
+                                if genome.fitness &gt; gen.fitness : gen = genome
                         net_file_path = &#39;saved/Gym_trained_NEAT_network_{0}_generations.json&#39;.format(self.generation)
-                        net = neat.nn.recurrent.RecurrentNetwork.create(best_gen, config)
+                        net = neat.nn.recurrent.RecurrentNetwork.create(gen, config)
                         neat_recurrent_network_file.save(net_file_path, net)
                         print(&#39;\rRéseau enregistré dans &#39;, net_file_path, &#39;.&#39;, sep=&#39;&#39;)
                 self.generation += 1
@@ -256,6 +265,23 @@ if __name__ == &#39;__main__&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">TRAINING_TIME_FUNC = lambda generation : int(5 + 55/(1+math.exp(-(generation-15))))</code></pre>
+</details>
+</dd>
+<dt id="neat_train.fittest"><code class="name flex">
+<span>def <span class="ident">fittest</span></span>(<span>population)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>return best genome in population (based on fitness earned)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fittest(population) :
+        &#34;&#34;&#34;return best genome in population (based on fitness earned)&#34;&#34;&#34;
+        best_gen = population[0][1]
+        for genome_id, genome in population :
+                if genome.fitness &gt; best_gen.fitness : best_gen = genome
+        return best_gen</code></pre>
 </details>
 </dd>
 <dt id="neat_train.main"><code class="name flex">
@@ -415,13 +441,15 @@ fitness</p></section>
                         while env.used : time.sleep(0.1)
                         if env.last_genome_trained != None :
                                 dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+                gen = fittest(population)
+                print(&#39;Le meilleur génome de la géneration a un score de &#39;, gen.fitness, &#39;.&#39;, sep=&#39;&#39;)
                 if self.generation%1000 == 0 :
                         print(&#39;Sauvegarde...&#39;, end=&#39;&#39;)
-                        best_gen = population[0][1]
+                        gen = population[0][1]
                         for genome_id, genome in population :
-                                if genome.fitness &gt; best_gen.fitness : best_gen = genome
+                                if genome.fitness &gt; gen.fitness : gen = genome
                         net_file_path = &#39;saved/Gym_trained_NEAT_network_{0}_generations.json&#39;.format(self.generation)
-                        net = neat.nn.recurrent.RecurrentNetwork.create(best_gen, config)
+                        net = neat.nn.recurrent.RecurrentNetwork.create(gen, config)
                         neat_recurrent_network_file.save(net_file_path, net)
                         print(&#39;\rRéseau enregistré dans &#39;, net_file_path, &#39;.&#39;, sep=&#39;&#39;)
                 self.generation += 1</code></pre>
@@ -464,13 +492,15 @@ save network every 1000 generations</p></section>
                 while env.used : time.sleep(0.1)
                 if env.last_genome_trained != None :
                         dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+        gen = fittest(population)
+        print(&#39;Le meilleur génome de la géneration a un score de &#39;, gen.fitness, &#39;.&#39;, sep=&#39;&#39;)
         if self.generation%1000 == 0 :
                 print(&#39;Sauvegarde...&#39;, end=&#39;&#39;)
-                best_gen = population[0][1]
+                gen = population[0][1]
                 for genome_id, genome in population :
-                        if genome.fitness &gt; best_gen.fitness : best_gen = genome
+                        if genome.fitness &gt; gen.fitness : gen = genome
                 net_file_path = &#39;saved/Gym_trained_NEAT_network_{0}_generations.json&#39;.format(self.generation)
-                net = neat.nn.recurrent.RecurrentNetwork.create(best_gen, config)
+                net = neat.nn.recurrent.RecurrentNetwork.create(gen, config)
                 neat_recurrent_network_file.save(net_file_path, net)
                 print(&#39;\rRéseau enregistré dans &#39;, net_file_path, &#39;.&#39;, sep=&#39;&#39;)
         self.generation += 1</code></pre>
@@ -661,8 +691,9 @@ else to the thread.</p></section>
 </div>
 <ul id="index">
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="neat_train.TRAINING_TIME_FUNC" href="#neat_train.TRAINING_TIME_FUNC">TRAINING_TIME_FUNC</a></code></li>
+<li><code><a title="neat_train.fittest" href="#neat_train.fittest">fittest</a></code></li>
 <li><code><a title="neat_train.main" href="#neat_train.main">main</a></code></li>
 <li><code><a title="neat_train.set_actions" href="#neat_train.set_actions">set_actions</a></code></li>
 <li><code><a title="neat_train.set_inputs" href="#neat_train.set_inputs">set_inputs</a></code></li>
