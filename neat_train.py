@@ -75,11 +75,12 @@ class Fitness:
 		"""
 		Assign each genome fitness
 
-		Fitness is defined with the reward earned by the agent born from the genome in a MineRLNavigateDense environment
+		put agents in minecraft env for training
+		set genomes fitness (defined with the reward earned by the agent born from the genome in a MineRLNavigateDense environment)
+		save network every 1000 generations
 
 		"""
 		print('\n\rGénération : ', self.generation, '.\n\r', sep='')
-		#put agents in minecraft env for training
 		for genome_id, genome in population :
 			net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
 			env_id = 0
@@ -87,17 +88,13 @@ class Fitness:
 				env_id = (env_id+1)%len(self.envs)
 				time.sleep(0.1)
 			if self.envs[env_id].last_genome_trained != None :
-				#retrieve former genome's fitness
 				dict(population)[self.envs[env_id].last_genome_trained[0]].fitness = self.envs[env_id].last_genome_trained[1]
 			self.envs[env_id].call(genome_id, net.activate, TRAINING_TIME_FUNC(self.generation))
 			print('Environnement ', env_id,' utilisé par le génome ', self.envs[env_id].genome_id, '.', sep='')
-		#wait for all envs to be freed
 		for env in self.envs :
 			while env.used : time.sleep(0.1)
 			if env.last_genome_trained != None :
-				#retrieve former genome's fitness
 				dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
-		#saving every 1000 generations
 		if self.generation%1000 == 0 :
 			print('Sauvegarde...', end='')
 			best_gen = population[0][1]
@@ -175,7 +172,7 @@ class MinerlEnv(threading.Thread):
 
 
 def main() :
-	#get configurations
+	"""get configurations, launch minecraft environments, train and select agents with neat, close envs and save final network"""
 	local_dir = os.path.dirname(__file__)
 	config_path = os.path.join(local_dir, 'config-file.txt')
 	neat_config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
@@ -184,7 +181,6 @@ def main() :
 	num_generations = int(config['PERSONAL']['num_generations'])
 	num_environments = int(config['PERSONAL']['num_environments'])
 
-	#launch minecraft environments
 	print('Lancement des environnements...', end='')
 	envs = [MinerlEnv(env_id) for env_id in range(num_environments)]
 	for env in envs : env.start()
@@ -192,16 +188,13 @@ def main() :
 		while not env.is_ready : time.sleep(0.1)
 	print('\rTous les environnements sont prêts.\n\r')
 
-	#train
 	print('Demarage de l\'entraînement.')
 	p = neat.Population(neat_config)
 	winner = p.run(Fitness(envs).fitness, num_generations)
 	print('\n\r\n\rEntraînement terminé.\n\r')
 
-	#close env
 	for env in envs : env.stop = True
 
-	#save final network
 	print('Sauvegarde...', end='')
 	date = datetime.datetime.now()
 	net_file_path = 'train/Gym_trained_NEAT_network_{0}-{1}-{2}_{3}h{4}.json'.format(date.day, date.month, date.year, date.hour, date.minute)

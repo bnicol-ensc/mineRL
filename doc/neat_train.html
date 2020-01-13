@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.2" />
+<title>neat_train API documentation</title>
+<meta name="description" content="Create agents with NEAT algorithm …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>neat_train</code></h1>
+</header>
+<section id="section-intro">
+<p>Create agents with NEAT algorithm</p>
+<p>Agents are trained in gym MineRLNavigateDense environment</p>
+<p>Created : 13/12/2019 by Guilhem Le Moigne
+Updated : 16/12/2019 by Guilhem Le Moigne
+Updated : 17/12/2019 by Guilhem Le Moigne
+Updated : 18/12/2019 by Guilhem Le Moigne
+Updated : 07/01/2020 by Guilhem Le Moigne</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Create agents with NEAT algorithm
+
+Agents are trained in gym MineRLNavigateDense environment
+
+Created : 13/12/2019 by Guilhem Le Moigne
+Updated : 16/12/2019 by Guilhem Le Moigne
+Updated : 17/12/2019 by Guilhem Le Moigne
+Updated : 18/12/2019 by Guilhem Le Moigne
+Updated : 07/01/2020 by Guilhem Le Moigne
+&#34;&#34;&#34;
+
+import os
+import time
+import threading
+import configparser
+import math
+import datetime
+import minerl
+import gym
+import neat
+import neat_recurrent_network_file
+
+
+#sigmoid centered on 15 generations that converge towards 1 min
+TRAINING_TIME_FUNC = lambda generation : int(5 + 55/(1+math.exp(-(generation-15))))
+
+
+def standardize(v, scope, offset=0) :
+        &#34;&#34;&#34;Puts values that are between 0 and scope between 0 and 1&#34;&#34;&#34;
+        try :
+                l = list()
+                for i in range(len(v)) :
+                        l.append((v[i]+offset)/scope)
+                return l
+        except TypeError : return (v+offset)/scope
+
+def set_inputs(compass, reward, pov) :
+        &#34;&#34;&#34;Format inputs&#34;&#34;&#34;
+        inputs = [standardize(compass, 360, 180)]
+        inputs.extend([standardize(reward, 100)])
+        inputs.extend(standardize(pov.flatten(), 255))
+        return inputs
+
+def set_actions(noop, output) :
+        &#34;&#34;&#34;Make actions from output&#34;&#34;&#34;
+        noop[&#39;camera&#39;] = output[0]*360-180, output[1]*360-180
+        noop[&#39;jump&#39;] = 0 if output[2]&lt;=0.5 else 1
+        noop[&#39;forward&#39;] = 0 if output[3]&lt;=0.5 else 1
+        noop[&#39;back&#39;] = 0 if output[4]&lt;=0.5 else 1
+        noop[&#39;left&#39;] = 0 if output[5]&lt;=0.5 else 1
+        noop[&#39;right&#39;] = 0 if output[6]&lt;=0.5 else 1
+        noop[&#39;sprint&#39;] = 0 if output[7]&lt;=0.5 else 1
+        noop[&#39;sneak&#39;] = 0 if output[8]&lt;=0.5 else 1
+        return noop
+
+class Fitness:
+        &#34;&#34;&#34;
+        See fitness method
+
+        ARGUMENTS :
+        envs : list of training environments (gym format)
+
+        METHODS:
+        fitness
+
+        &#34;&#34;&#34;
+        def __init__(self, envs):
+                self.envs = envs
+                self.generation = 1
+
+        def fitness(self, population, config) :
+                &#34;&#34;&#34;
+                Assign each genome fitness
+
+                put agents in minecraft env for training
+                set genomes fitness (defined with the reward earned by the agent born from the genome in a MineRLNavigateDense environment)
+                save network every 1000 generations
+
+                &#34;&#34;&#34;
+                print(&#39;\n\rGénération : &#39;, self.generation, &#39;.\n\r&#39;, sep=&#39;&#39;)
+                for genome_id, genome in population :
+                        net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
+                        env_id = 0
+                        while self.envs[env_id].used :
+                                env_id = (env_id+1)%len(self.envs)
+                                time.sleep(0.1)
+                        if self.envs[env_id].last_genome_trained != None :
+                                dict(population)[self.envs[env_id].last_genome_trained[0]].fitness = self.envs[env_id].last_genome_trained[1]
+                        self.envs[env_id].call(genome_id, net.activate, TRAINING_TIME_FUNC(self.generation))
+                        print(&#39;Environnement &#39;, env_id,&#39; utilisé par le génome &#39;, self.envs[env_id].genome_id, &#39;.&#39;, sep=&#39;&#39;)
+                for env in self.envs :
+                        while env.used : time.sleep(0.1)
+                        if env.last_genome_trained != None :
+                                dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+                if self.generation%1000 == 0 :
+                        print(&#39;Sauvegarde...&#39;, end=&#39;&#39;)
+                        best_gen = population[0][1]
+                        for genome_id, genome in population :
+                                if genome.fitness &gt; best_gen.fitness : best_gen = genome
+                        net_file_path = &#39;saved/Gym_trained_NEAT_network_{0}_generations.json&#39;.format(self.generation)
+                        net = neat.nn.recurrent.RecurrentNetwork.create(best_gen, config)
+                        neat_recurrent_network_file.save(net_file_path, net)
+                        print(&#39;\rRéseau enregistré dans &#39;, net_file_path, &#39;.&#39;, sep=&#39;&#39;)
+                self.generation += 1
+
+
+class MinerlEnv(threading.Thread):
+        &#34;&#34;&#34;
+        Gets a gym MineRLNavigateDense env on a separate thread for it to be used to train networks
+
+        ARGUMENTS:
+        env_id
+
+        METHODS:
+        reset
+        call
+        run
+
+        &#34;&#34;&#34;
+        def __init__(self, env_id):
+                super(MinerlEnv, self).__init__()
+                self.env_id = env_id
+                self.is_ready = False
+                self.training_time = 1
+                self.stop = False
+
+        def reset(self, last_genome_trained=None) :
+                &#34;&#34;&#34;Reset genome linked parameters, reset env and store last genome data&#34;&#34;&#34;
+                self.last_genome_trained = last_genome_trained
+                obs = self.env.reset()
+                self.genome_id = None
+                self.net_activate = None
+                self.fitness = 0
+                self.used = False
+                return obs
+
+        def call(self, genome_id, net_activate, training_time) :
+                &#34;&#34;&#34;Method to call to start training a network&#34;&#34;&#34;
+                self.genome_id = genome_id
+                self.net_activate = net_activate
+                self.training_time = training_time
+                self.used = True
+
+        def run(self):
+                &#34;&#34;&#34;Open a gym MineRLNavigateDense env to train networks when self.call is called&#34;&#34;&#34;
+                with gym.make(&#39;MineRLNavigateDense-v0&#39;) as self.env :
+                        obs = self.reset()
+                        done = False
+                        reward = 0
+                        self.is_ready = True
+                        t = time.time()
+                        while not self.stop :
+                                if not self.used :
+                                        time.sleep(0.1)
+                                        t = time.time()
+                                else :
+                                        inputs = set_inputs(obs[&#39;compassAngle&#39;], reward, obs[&#39;pov&#39;])
+                                        output = self.net_activate(inputs)
+                                        action = set_actions(self.env.action_space.noop(), output)
+                                        obs, reward, done, _ = self.env.step(action)
+                                        self.fitness += reward
+                                        duration = time.time() - t
+                                        if duration &gt; self.training_time or done :
+                                                print(&#39;Le génome &#39;, self.genome_id, &#39; libére l\&#39;environnement &#39;, self.env_id,&#39;.&#39;, sep=&#39;&#39;)
+                                                if done : self.fitness += self.training_time - duration
+                                                self.fitness = self.fitness/duration
+                                                obs = self.reset((self.genome_id, self.fitness))
+                                                print(&#34;Environnement&#34;, self.env_id, &#34;reset.&#34;)
+
+
+def main() :
+        &#34;&#34;&#34;get configurations, launch minecraft environments, train and select agents with neat, close envs and save final network&#34;&#34;&#34;
+        local_dir = os.path.dirname(__file__)
+        config_path = os.path.join(local_dir, &#39;config-file.txt&#39;)
+        neat_config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        num_generations = int(config[&#39;PERSONAL&#39;][&#39;num_generations&#39;])
+        num_environments = int(config[&#39;PERSONAL&#39;][&#39;num_environments&#39;])
+
+        print(&#39;Lancement des environnements...&#39;, end=&#39;&#39;)
+        envs = [MinerlEnv(env_id) for env_id in range(num_environments)]
+        for env in envs : env.start()
+        for env in envs : 
+                while not env.is_ready : time.sleep(0.1)
+        print(&#39;\rTous les environnements sont prêts.\n\r&#39;)
+
+        print(&#39;Demarage de l\&#39;entraînement.&#39;)
+        p = neat.Population(neat_config)
+        winner = p.run(Fitness(envs).fitness, num_generations)
+        print(&#39;\n\r\n\rEntraînement terminé.\n\r&#39;)
+
+        for env in envs : env.stop = True
+
+        print(&#39;Sauvegarde...&#39;, end=&#39;&#39;)
+        date = datetime.datetime.now()
+        net_file_path = &#39;train/Gym_trained_NEAT_network_{0}-{1}-{2}_{3}h{4}.json&#39;.format(date.day, date.month, date.year, date.hour, date.minute)
+        net = neat.nn.recurrent.RecurrentNetwork.create(winner, neat_config)
+        neat_recurrent_network_file.save(net_file_path, net)
+        print(&#39;\rRéseau final enregistré dans &#39;, net_file_path, &#39;.&#39;, sep=&#39;&#39;)
+
+if __name__ == &#39;__main__&#39;:
+        main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="neat_train.TRAINING_TIME_FUNC"><code class="name flex">
+<span>def <span class="ident">TRAINING_TIME_FUNC</span></span>(<span>generation)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">TRAINING_TIME_FUNC = lambda generation : int(5 + 55/(1+math.exp(-(generation-15))))</code></pre>
+</details>
+</dd>
+<dt id="neat_train.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>get configurations, launch minecraft environments, train and select agents with neat, close envs and save final network</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main() :
+        &#34;&#34;&#34;get configurations, launch minecraft environments, train and select agents with neat, close envs and save final network&#34;&#34;&#34;
+        local_dir = os.path.dirname(__file__)
+        config_path = os.path.join(local_dir, &#39;config-file.txt&#39;)
+        neat_config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        num_generations = int(config[&#39;PERSONAL&#39;][&#39;num_generations&#39;])
+        num_environments = int(config[&#39;PERSONAL&#39;][&#39;num_environments&#39;])
+
+        print(&#39;Lancement des environnements...&#39;, end=&#39;&#39;)
+        envs = [MinerlEnv(env_id) for env_id in range(num_environments)]
+        for env in envs : env.start()
+        for env in envs : 
+                while not env.is_ready : time.sleep(0.1)
+        print(&#39;\rTous les environnements sont prêts.\n\r&#39;)
+
+        print(&#39;Demarage de l\&#39;entraînement.&#39;)
+        p = neat.Population(neat_config)
+        winner = p.run(Fitness(envs).fitness, num_generations)
+        print(&#39;\n\r\n\rEntraînement terminé.\n\r&#39;)
+
+        for env in envs : env.stop = True
+
+        print(&#39;Sauvegarde...&#39;, end=&#39;&#39;)
+        date = datetime.datetime.now()
+        net_file_path = &#39;train/Gym_trained_NEAT_network_{0}-{1}-{2}_{3}h{4}.json&#39;.format(date.day, date.month, date.year, date.hour, date.minute)
+        net = neat.nn.recurrent.RecurrentNetwork.create(winner, neat_config)
+        neat_recurrent_network_file.save(net_file_path, net)
+        print(&#39;\rRéseau final enregistré dans &#39;, net_file_path, &#39;.&#39;, sep=&#39;&#39;)</code></pre>
+</details>
+</dd>
+<dt id="neat_train.set_actions"><code class="name flex">
+<span>def <span class="ident">set_actions</span></span>(<span>noop, output)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Make actions from output</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_actions(noop, output) :
+        &#34;&#34;&#34;Make actions from output&#34;&#34;&#34;
+        noop[&#39;camera&#39;] = output[0]*360-180, output[1]*360-180
+        noop[&#39;jump&#39;] = 0 if output[2]&lt;=0.5 else 1
+        noop[&#39;forward&#39;] = 0 if output[3]&lt;=0.5 else 1
+        noop[&#39;back&#39;] = 0 if output[4]&lt;=0.5 else 1
+        noop[&#39;left&#39;] = 0 if output[5]&lt;=0.5 else 1
+        noop[&#39;right&#39;] = 0 if output[6]&lt;=0.5 else 1
+        noop[&#39;sprint&#39;] = 0 if output[7]&lt;=0.5 else 1
+        noop[&#39;sneak&#39;] = 0 if output[8]&lt;=0.5 else 1
+        return noop</code></pre>
+</details>
+</dd>
+<dt id="neat_train.set_inputs"><code class="name flex">
+<span>def <span class="ident">set_inputs</span></span>(<span>compass, reward, pov)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Format inputs</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_inputs(compass, reward, pov) :
+        &#34;&#34;&#34;Format inputs&#34;&#34;&#34;
+        inputs = [standardize(compass, 360, 180)]
+        inputs.extend([standardize(reward, 100)])
+        inputs.extend(standardize(pov.flatten(), 255))
+        return inputs</code></pre>
+</details>
+</dd>
+<dt id="neat_train.standardize"><code class="name flex">
+<span>def <span class="ident">standardize</span></span>(<span>v, scope, offset=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Puts values that are between 0 and scope between 0 and 1</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def standardize(v, scope, offset=0) :
+        &#34;&#34;&#34;Puts values that are between 0 and scope between 0 and 1&#34;&#34;&#34;
+        try :
+                l = list()
+                for i in range(len(v)) :
+                        l.append((v[i]+offset)/scope)
+                return l
+        except TypeError : return (v+offset)/scope</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="neat_train.Fitness"><code class="flex name class">
+<span>class <span class="ident">Fitness</span></span>
+<span>(</span><span>envs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>See fitness method</p>
+<p>ARGUMENTS :
+envs : list of training environments (gym format)</p>
+<p>METHODS:
+fitness</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Fitness:
+        &#34;&#34;&#34;
+        See fitness method
+
+        ARGUMENTS :
+        envs : list of training environments (gym format)
+
+        METHODS:
+        fitness
+
+        &#34;&#34;&#34;
+        def __init__(self, envs):
+                self.envs = envs
+                self.generation = 1
+
+        def fitness(self, population, config) :
+                &#34;&#34;&#34;
+                Assign each genome fitness
+
+                put agents in minecraft env for training
+                set genomes fitness (defined with the reward earned by the agent born from the genome in a MineRLNavigateDense environment)
+                save network every 1000 generations
+
+                &#34;&#34;&#34;
+                print(&#39;\n\rGénération : &#39;, self.generation, &#39;.\n\r&#39;, sep=&#39;&#39;)
+                for genome_id, genome in population :
+                        net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
+                        env_id = 0
+                        while self.envs[env_id].used :
+                                env_id = (env_id+1)%len(self.envs)
+                                time.sleep(0.1)
+                        if self.envs[env_id].last_genome_trained != None :
+                                dict(population)[self.envs[env_id].last_genome_trained[0]].fitness = self.envs[env_id].last_genome_trained[1]
+                        self.envs[env_id].call(genome_id, net.activate, TRAINING_TIME_FUNC(self.generation))
+                        print(&#39;Environnement &#39;, env_id,&#39; utilisé par le génome &#39;, self.envs[env_id].genome_id, &#39;.&#39;, sep=&#39;&#39;)
+                for env in self.envs :
+                        while env.used : time.sleep(0.1)
+                        if env.last_genome_trained != None :
+                                dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+                if self.generation%1000 == 0 :
+                        print(&#39;Sauvegarde...&#39;, end=&#39;&#39;)
+                        best_gen = population[0][1]
+                        for genome_id, genome in population :
+                                if genome.fitness &gt; best_gen.fitness : best_gen = genome
+                        net_file_path = &#39;saved/Gym_trained_NEAT_network_{0}_generations.json&#39;.format(self.generation)
+                        net = neat.nn.recurrent.RecurrentNetwork.create(best_gen, config)
+                        neat_recurrent_network_file.save(net_file_path, net)
+                        print(&#39;\rRéseau enregistré dans &#39;, net_file_path, &#39;.&#39;, sep=&#39;&#39;)
+                self.generation += 1</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="neat_train.Fitness.fitness"><code class="name flex">
+<span>def <span class="ident">fitness</span></span>(<span>self, population, config)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Assign each genome fitness</p>
+<p>put agents in minecraft env for training
+set genomes fitness (defined with the reward earned by the agent born from the genome in a MineRLNavigateDense environment)
+save network every 1000 generations</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fitness(self, population, config) :
+        &#34;&#34;&#34;
+        Assign each genome fitness
+
+        put agents in minecraft env for training
+        set genomes fitness (defined with the reward earned by the agent born from the genome in a MineRLNavigateDense environment)
+        save network every 1000 generations
+
+        &#34;&#34;&#34;
+        print(&#39;\n\rGénération : &#39;, self.generation, &#39;.\n\r&#39;, sep=&#39;&#39;)
+        for genome_id, genome in population :
+                net = neat.nn.recurrent.RecurrentNetwork.create(genome, config)
+                env_id = 0
+                while self.envs[env_id].used :
+                        env_id = (env_id+1)%len(self.envs)
+                        time.sleep(0.1)
+                if self.envs[env_id].last_genome_trained != None :
+                        dict(population)[self.envs[env_id].last_genome_trained[0]].fitness = self.envs[env_id].last_genome_trained[1]
+                self.envs[env_id].call(genome_id, net.activate, TRAINING_TIME_FUNC(self.generation))
+                print(&#39;Environnement &#39;, env_id,&#39; utilisé par le génome &#39;, self.envs[env_id].genome_id, &#39;.&#39;, sep=&#39;&#39;)
+        for env in self.envs :
+                while env.used : time.sleep(0.1)
+                if env.last_genome_trained != None :
+                        dict(population)[env.last_genome_trained[0]].fitness = env.last_genome_trained[1]
+        if self.generation%1000 == 0 :
+                print(&#39;Sauvegarde...&#39;, end=&#39;&#39;)
+                best_gen = population[0][1]
+                for genome_id, genome in population :
+                        if genome.fitness &gt; best_gen.fitness : best_gen = genome
+                net_file_path = &#39;saved/Gym_trained_NEAT_network_{0}_generations.json&#39;.format(self.generation)
+                net = neat.nn.recurrent.RecurrentNetwork.create(best_gen, config)
+                neat_recurrent_network_file.save(net_file_path, net)
+                print(&#39;\rRéseau enregistré dans &#39;, net_file_path, &#39;.&#39;, sep=&#39;&#39;)
+        self.generation += 1</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="neat_train.MinerlEnv"><code class="flex name class">
+<span>class <span class="ident">MinerlEnv</span></span>
+<span>(</span><span>env_id)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Gets a gym MineRLNavigateDense env on a separate thread for it to be used to train networks</p>
+<p>ARGUMENTS:
+env_id</p>
+<p>METHODS:
+reset
+call
+run</p>
+<p>This constructor should always be called with keyword arguments. Arguments are:</p>
+<p><em>group</em> should be None; reserved for future extension when a ThreadGroup
+class is implemented.</p>
+<p><em>target</em> is the callable object to be invoked by the run()
+method. Defaults to None, meaning nothing is called.</p>
+<p><em>name</em> is the thread name. By default, a unique name is constructed of
+the form "Thread-N" where N is a small decimal number.</p>
+<p><em>args</em> is the argument tuple for the target invocation. Defaults to ().</p>
+<p><em>kwargs</em> is a dictionary of keyword arguments for the target
+invocation. Defaults to {}.</p>
+<p>If a subclass overrides the constructor, it must make sure to invoke
+the base class constructor (Thread.<strong>init</strong>()) before doing anything
+else to the thread.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MinerlEnv(threading.Thread):
+        &#34;&#34;&#34;
+        Gets a gym MineRLNavigateDense env on a separate thread for it to be used to train networks
+
+        ARGUMENTS:
+        env_id
+
+        METHODS:
+        reset
+        call
+        run
+
+        &#34;&#34;&#34;
+        def __init__(self, env_id):
+                super(MinerlEnv, self).__init__()
+                self.env_id = env_id
+                self.is_ready = False
+                self.training_time = 1
+                self.stop = False
+
+        def reset(self, last_genome_trained=None) :
+                &#34;&#34;&#34;Reset genome linked parameters, reset env and store last genome data&#34;&#34;&#34;
+                self.last_genome_trained = last_genome_trained
+                obs = self.env.reset()
+                self.genome_id = None
+                self.net_activate = None
+                self.fitness = 0
+                self.used = False
+                return obs
+
+        def call(self, genome_id, net_activate, training_time) :
+                &#34;&#34;&#34;Method to call to start training a network&#34;&#34;&#34;
+                self.genome_id = genome_id
+                self.net_activate = net_activate
+                self.training_time = training_time
+                self.used = True
+
+        def run(self):
+                &#34;&#34;&#34;Open a gym MineRLNavigateDense env to train networks when self.call is called&#34;&#34;&#34;
+                with gym.make(&#39;MineRLNavigateDense-v0&#39;) as self.env :
+                        obs = self.reset()
+                        done = False
+                        reward = 0
+                        self.is_ready = True
+                        t = time.time()
+                        while not self.stop :
+                                if not self.used :
+                                        time.sleep(0.1)
+                                        t = time.time()
+                                else :
+                                        inputs = set_inputs(obs[&#39;compassAngle&#39;], reward, obs[&#39;pov&#39;])
+                                        output = self.net_activate(inputs)
+                                        action = set_actions(self.env.action_space.noop(), output)
+                                        obs, reward, done, _ = self.env.step(action)
+                                        self.fitness += reward
+                                        duration = time.time() - t
+                                        if duration &gt; self.training_time or done :
+                                                print(&#39;Le génome &#39;, self.genome_id, &#39; libére l\&#39;environnement &#39;, self.env_id,&#39;.&#39;, sep=&#39;&#39;)
+                                                if done : self.fitness += self.training_time - duration
+                                                self.fitness = self.fitness/duration
+                                                obs = self.reset((self.genome_id, self.fitness))
+                                                print(&#34;Environnement&#34;, self.env_id, &#34;reset.&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>threading.Thread</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="neat_train.MinerlEnv.call"><code class="name flex">
+<span>def <span class="ident">call</span></span>(<span>self, genome_id, net_activate, training_time)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Method to call to start training a network</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def call(self, genome_id, net_activate, training_time) :
+        &#34;&#34;&#34;Method to call to start training a network&#34;&#34;&#34;
+        self.genome_id = genome_id
+        self.net_activate = net_activate
+        self.training_time = training_time
+        self.used = True</code></pre>
+</details>
+</dd>
+<dt id="neat_train.MinerlEnv.reset"><code class="name flex">
+<span>def <span class="ident">reset</span></span>(<span>self, last_genome_trained=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Reset genome linked parameters, reset env and store last genome data</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset(self, last_genome_trained=None) :
+        &#34;&#34;&#34;Reset genome linked parameters, reset env and store last genome data&#34;&#34;&#34;
+        self.last_genome_trained = last_genome_trained
+        obs = self.env.reset()
+        self.genome_id = None
+        self.net_activate = None
+        self.fitness = 0
+        self.used = False
+        return obs</code></pre>
+</details>
+</dd>
+<dt id="neat_train.MinerlEnv.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Open a gym MineRLNavigateDense env to train networks when self.call is called</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self):
+        &#34;&#34;&#34;Open a gym MineRLNavigateDense env to train networks when self.call is called&#34;&#34;&#34;
+        with gym.make(&#39;MineRLNavigateDense-v0&#39;) as self.env :
+                obs = self.reset()
+                done = False
+                reward = 0
+                self.is_ready = True
+                t = time.time()
+                while not self.stop :
+                        if not self.used :
+                                time.sleep(0.1)
+                                t = time.time()
+                        else :
+                                inputs = set_inputs(obs[&#39;compassAngle&#39;], reward, obs[&#39;pov&#39;])
+                                output = self.net_activate(inputs)
+                                action = set_actions(self.env.action_space.noop(), output)
+                                obs, reward, done, _ = self.env.step(action)
+                                self.fitness += reward
+                                duration = time.time() - t
+                                if duration &gt; self.training_time or done :
+                                        print(&#39;Le génome &#39;, self.genome_id, &#39; libére l\&#39;environnement &#39;, self.env_id,&#39;.&#39;, sep=&#39;&#39;)
+                                        if done : self.fitness += self.training_time - duration
+                                        self.fitness = self.fitness/duration
+                                        obs = self.reset((self.genome_id, self.fitness))
+                                        print(&#34;Environnement&#34;, self.env_id, &#34;reset.&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="neat_train.TRAINING_TIME_FUNC" href="#neat_train.TRAINING_TIME_FUNC">TRAINING_TIME_FUNC</a></code></li>
+<li><code><a title="neat_train.main" href="#neat_train.main">main</a></code></li>
+<li><code><a title="neat_train.set_actions" href="#neat_train.set_actions">set_actions</a></code></li>
+<li><code><a title="neat_train.set_inputs" href="#neat_train.set_inputs">set_inputs</a></code></li>
+<li><code><a title="neat_train.standardize" href="#neat_train.standardize">standardize</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="neat_train.Fitness" href="#neat_train.Fitness">Fitness</a></code></h4>
+<ul class="">
+<li><code><a title="neat_train.Fitness.fitness" href="#neat_train.Fitness.fitness">fitness</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="neat_train.MinerlEnv" href="#neat_train.MinerlEnv">MinerlEnv</a></code></h4>
+<ul class="">
+<li><code><a title="neat_train.MinerlEnv.call" href="#neat_train.MinerlEnv.call">call</a></code></li>
+<li><code><a title="neat_train.MinerlEnv.reset" href="#neat_train.MinerlEnv.reset">reset</a></code></li>
+<li><code><a title="neat_train.MinerlEnv.run" href="#neat_train.MinerlEnv.run">run</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
