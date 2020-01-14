@@ -9,7 +9,7 @@ fitness_criterion     = max
 fitness_threshold     = 0
 no_fitness_termination = true
 #il faut une population de 2 individus minimum
-pop_size              = 3
+pop_size              = 24
 reset_on_extinction   = False
 
 [DefaultReproduction]
@@ -70,5 +70,5 @@ max_stagnation       = 20
 species_elitism      = 2
 
 [PERSONAL]
-num_generations       = 2
-num_environments      = 2
+num_generations       = 500
+num_environments      = 6

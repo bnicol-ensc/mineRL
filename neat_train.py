@@ -109,7 +109,7 @@ class Fitness:
 				except KeyError : pass
 		gen = fittest(population)
 		print('Le meilleur génome de la géneration a un score de ', gen.fitness, '.', sep='')
-		if self.generation%1000 == 0 :
+		if self.generation%50 == 0 :
 			print('Sauvegarde...', end='')
 			gen = population[0][1]
 			for genome_id, genome in population :
